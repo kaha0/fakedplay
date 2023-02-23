@@ -1,0 +1,6 @@
+#pragma once
+
+#define IDD_GETENDPOINTDLG		103
+#define IDD_GETLOCALPORTDLG		104
+#define IDD_GETREMOTEPORTDLG	105
+#define ID_EDIT					106

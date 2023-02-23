@@ -1,0 +1,95 @@
+#define WIN32_LEAN_AND_MEAN
+#define WIN32_EXTRA_LEAN
+#include<windows.h>
+#include "resource.h"
+
+// dimensions not in pixels but in DialogBaseUnits which are based on size of font used for the dialog
+// https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-getdialogbaseunits
+//   - returns units for the system font, since i set font manually it won't work here either
+// https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-mapdialogrect
+//   - can be used to calculate dimensions dynamically but since we have a baked-in dialog it's useless
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// GetEndpointDialog
+//
+
+IDD_GETENDPOINTDLG DIALOGEX 0, 0, 170, 48
+STYLE DS_SETFONT | DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Enter remote IP"
+FONT 8, "MS Shell Dlg", 0, 0, 1
+BEGIN
+    LTEXT           "Enter IPv4:port",/*IDC_STATIC*/-1,7,7,53,8,SS_SIMPLE//NOPREFIX
+    EDITTEXT        ID_EDIT,59,5,104,14,WS_TABSTOP | ES_LEFT//AUTOHSCROLL
+    DEFPUSHBUTTON   "OK",IDOK,60,27,50,14,WS_TABSTOP | BS_DEFPUSHBUTTON
+END
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// GetLocalPortDialog
+//
+
+IDD_GETLOCALPORTDLG DIALOGEX 0, 0, 146, 48
+STYLE DS_SETFONT | DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Enter port"
+FONT 8, "MS Shell Dlg", 0, 0, 1
+BEGIN
+    LTEXT           "Enter port to listen on:",/*IDC_STATIC*/-1,7,7,78,8,SS_SIMPLE//NOPREFIX
+    EDITTEXT        ID_EDIT,88,5,50,14,WS_TABSTOP | ES_LEFT//AUTOHSCROLL
+    DEFPUSHBUTTON   "OK",IDOK,48,26,50,14,WS_TABSTOP | BS_DEFPUSHBUTTON
+END
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// GetRemotePortDialog
+//
+
+IDD_GETREMOTEPORTDLG DIALOGEX 0, 0, 156, 48
+STYLE DS_SETFONT | DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Enter port"
+FONT 8, "MS Shell Dlg", 0, 0, 1
+BEGIN
+    LTEXT           "Enter remote port to connect to:",/*IDC_STATIC*/-1,7,7,114,8,SS_SIMPLE//NOPREFIX
+    EDITTEXT        ID_EDIT,118,5,30,14,WS_TABSTOP | ES_LEFT//AUTOHSCROLL
+    DEFPUSHBUTTON   "OK",IDOK,52,26,50,14,WS_TABSTOP | BS_DEFPUSHBUTTON
+END
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version	https://docs.microsoft.com/en-us/windows/win32/menurc/versioninfo-resource
+// (also see C:\Program Files\Microsoft Visual Studio 10.0\Samples\1033\VC2010Samples.zip )
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 0,0,9,0
+ PRODUCTVERSION 0,0,9,0
+ FILEFLAGSMASK VS_FFI_FILEFLAGSMASK
+#ifdef _DEBUG
+ FILEFLAGS VS_FF_DEBUG
+#else
+ FILEFLAGS 0
+#endif
+ FILEOS VOS__WINDOWS32
+ FILETYPE VFT_DLL
+ FILESUBTYPE 0
+BEGIN
+	BLOCK "StringFileInfo"
+	BEGIN
+		BLOCK "040904e4"
+		BEGIN
+			//VALUE "Comments", "\0"
+			VALUE "CompanyName", "Macrohard\0"
+			VALUE "FileDescription", "Fake DirectPlay\0"
+			VALUE "FileVersion", "0.0.9.0\0"
+			VALUE "InternalName", "fakedplay\0"
+			VALUE "LegalCopyright", "No rights reserved.\0"
+			//VALUE "LegalTrademarks", "\0"
+			VALUE "OriginalFilename", "fakedplay.dll\0"
+			VALUE "ProductName", "fakedplay\0"
+			VALUE "ProductVersion", "0.0.9.0\0"
+		END
+	END
+	BLOCK "VarFileInfo"
+	BEGIN
+		VALUE "Translation", 0x409, 1252
+	END
+END
